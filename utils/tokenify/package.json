@@ -1,0 +1,24 @@
+{
+	"name": "tokenify",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"dependencies": {
+		"@types/jsdom": "^16.2.4",
+		"@types/node-fetch": "^2.5.7",
+		"dependencies": "0.0.1",
+		"fetch-cookie": "^0.10.1",
+		"https-proxy-agent": "^5.0.0",
+		"jsdom": "^16.4.0",
+		"node-fetch": "^2.6.1",
+		"request": "^2.88.2",
+		"url": "^0.11.0",
+		"ws": "^7.3.1"
+	},
+	"scripts": {
+		"start": "tsc && node index"
+	},
+	"devDependencies": {
+		"webpack-cli": "^3.3.12"
+	}
+}
