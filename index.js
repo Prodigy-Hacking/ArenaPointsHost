@@ -1,5 +1,5 @@
 "use strict";
-
+try{
 (async () => {
     const express = require('express')
 const fetch = require('node-fetch')
@@ -74,3 +74,6 @@ app.listen(3000, () => {
     console.log(`Site is up on port 3000`)
 })
 })()
+}catch (e){
+console.log(`Error: ${e}`)
+}
