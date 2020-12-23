@@ -35,14 +35,33 @@ Swal.mixin({
               }
    
           })).text()
-        })()
+         try{ let data = JSON.parse(datalink)}catch{
           Swal.fire(
-          'Success!',
-          'Arena points should be generating momentarily.',
-          'success'
-        ).then(() => {
-         Swal.close()
-        })
+            'An error occured.',
+            'Please try again later, or join our Discord for support.',
+            'error'
+          ).then(() => {
+           Swal.close()
+          })
+         }
+          if(data.code != 200){
+            Swal.fire(
+              'An error occured.',
+              'Please try again later, or join our Discord for support.',
+              'error'
+            ).then(() => {
+             Swal.close()
+            })
+          }else{
+            Swal.fire(
+              'Success!',
+              'Arena points should be generating momentarily.',
+              'success'
+            ).then(() => {
+             Swal.close()
+            })
+          }
+        })()
       }
     })
   }

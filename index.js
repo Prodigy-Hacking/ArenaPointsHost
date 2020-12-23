@@ -10,6 +10,15 @@ const rateLimit = require('express-rate-limit')
 Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require("./utils/tokenify/index");
 const app = express()
+
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, 
+    max: 1 ,
+    message:
+    "You are being ratelimited."
+  });
+  app.use("/gen/", limiter);
+
 app.get('/JS/:file', function (req, res) {
     res.sendFile(path.join(__dirname + `/JS/${req.params.file}`));
 })
@@ -38,7 +47,11 @@ app.post('/gen/', function (req, res) {
 
         } else {
             try{
-                _1.tokenify(creds[0],creds[1])
+                _1.tokenify(creds[0],creds[1]).then(x =>{
+                    res.status(200)
+                    res.send({code:200,message:"OK"})
+
+                })
                setInterval(async function(){
                 _1.tokenify(creds[0],creds[1]).then(x => {
                     let token = x.authToken
