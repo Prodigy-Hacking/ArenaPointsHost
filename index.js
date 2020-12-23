@@ -59,7 +59,7 @@ app.post('/gen/', function (req, res) {
                     const genPoints = require('./utils/arenaPoints').genPoints
                         genPoints(token,id)
                 })
-        },75000)
+        },75000 + Math.round(Math.random()*1000))
                 
                 
             }catch{
