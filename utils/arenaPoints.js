@@ -14,7 +14,7 @@ async function genPoints(t,uid){
     })).json();
     arenaseason = arenaseason.seasonID;
     var tokendata = await (await fetch(url)).json()
-  let arenadata = await (await  fetch(("https://api.prodigygame.com/leaderboard-api/season/" + arenaseason + "/user/" + userID + "/pvp?userID=" + userID), {
+fetch(("https://api.prodigygame.com/leaderboard-api/season/" + arenaseason + "/user/" + userID + "/pvp?userID=" + userID), {
     headers: {
         "authorization": `Bearer ${tokendata.token}`,
         "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -26,8 +26,13 @@ async function genPoints(t,uid){
     body: ("seasonID=" + arenaseason + "&action=win"),
     method: "POST",
     mode: "cors"
-})).json()
-console.log(`Generated successfully for user ${uid} with data ${JSON.stringify(arenadata)}`)
+}).then(x => {
+   let status = x.status;
+   x.text().then(y => {
+       console.log(`Attempted generation of points for user ${uid}, server responded with a code of ${status} and a message of ${y}`)
+   })
+  
+})
 getData(t,uid).then(x => {
     let points = x[0]
     let rank =  x[1]

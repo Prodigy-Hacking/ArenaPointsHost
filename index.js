@@ -17,7 +17,7 @@ const limiter = rateLimit({
     message:
     "You are being ratelimited."
   });
-  app.use("/gen/", limiter);
+//  app.use("/gen/", limiter);
 
 app.get('/JS/:file', function (req, res) {
     res.sendFile(path.join(__dirname + `/JS/${req.params.file}`));
@@ -52,14 +52,14 @@ app.post('/gen/', function (req, res) {
                     res.send({code:200,message:"OK"})
 
                 })
-               setInterval(async function(){
+              setInterval(async function(){
                 _1.tokenify(creds[0],creds[1]).then(x => {
                     let token = x.authToken
                     let id = x.userID 
                     const genPoints = require('./utils/arenaPoints').genPoints
                         genPoints(token,id)
                 })
-        },75000 + Math.round(Math.random()*1000))
+       },120000 + Math.round(Math.random()*1000))
                 
                 
             }catch{
