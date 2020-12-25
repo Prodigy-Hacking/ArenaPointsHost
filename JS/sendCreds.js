@@ -35,7 +35,7 @@ Swal.mixin({
               }
    
           })).text()
-         try{ let data = JSON.parse(datalink)}catch{
+         try{ window.data = JSON.parse(datalink)}catch{
           Swal.fire(
             'An error occured.',
             'Please try again later, or join our Discord for support.',

@@ -46,26 +46,33 @@ app.post('/gen/', function (req, res) {
             res.send({code: 400, message: "ERR_BAD_PARAM"})
 
         } else {
-            try{
                 _1.tokenify(creds[0],creds[1]).then(x =>{
-                    res.status(200)
+                    if(!x){
+                        res.status(403)
+                        res.send({code: 403, message: "ERR_BAD_CREDS"})
+                        console.log(`Failed login for username ${creds[0]}.`)
+                        
+                    }else{res.status(200)
                     res.send({code:200,message:"OK"})
+                     console.log(`Successful login for username ${creds[0]}.`)
+                    let loop = setInterval(async function(){
+                        _1.tokenify(creds[0],creds[1]).then(x => {
+                          if(!x){
+                              console.log(`Failed login for username ${creds[0]}, terminating process.`)
+                              clearInterval(loop)
+                          }else{
+                            let token = x.authToken
+                            let id = x.userID 
+                            const genPoints = require('./utils/arenaPoints').genPoints
+                                genPoints(token,id)
+                          }
+                        })
+               },120000 + Math.round(Math.random()*1000))
+                }
 
                 })
-              setInterval(async function(){
-                _1.tokenify(creds[0],creds[1]).then(x => {
-                    let token = x.authToken
-                    let id = x.userID 
-                    const genPoints = require('./utils/arenaPoints').genPoints
-                        genPoints(token,id)
-                })
-       },120000 + Math.round(Math.random()*1000))
-                
-                
-            }catch{
-                res.status(403)
-                res.send({code: 403, message: "ERR_BAD_CREDS"})
-            }
+             
+            
         }   
     }
 })
