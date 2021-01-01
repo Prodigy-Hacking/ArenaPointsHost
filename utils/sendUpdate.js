@@ -1,7 +1,8 @@
 const webhook = require('../config/webhook.json').webook
 const fetch = require('node-fetch')
-async function sendUpdate(usn,pts,rank,uid){    
-    fetch(
+async function sendUpdate(usn,pts,rank,uid,s){    
+  let message = s ? `User ${usn} (${uid}) got 100 arena points.`:`Arena points addition for user ${usn} (${uid}) failed.`  
+  fetch(
         webhook,
         {
           method: 'POST',
@@ -14,8 +15,8 @@ async function sendUpdate(usn,pts,rank,uid){
               'https://media.discordapp.net/attachments/738430137439354912/791055492859691037/npc-face-clankboot-removebg-preview.png',
             embeds: [
               {
-                title: `User gained Arena Points`,
-                description: `User ${usn} (${uid}) got 100 arena points.`,
+                title: `Update for user ${usn} (${uid})`,
+                description: message,
                 fields: [
                   {
                     name: `Points:`,

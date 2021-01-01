@@ -3,9 +3,11 @@ try{
 (async () => {
     const express = require('express')
 const fetch = require('node-fetch')
+const log = require('./utils/logger').log
 const jsonfile = require('jsonfile')
 const path = require('path')
 const Discord = require('discord.js')
+const key = require('./config/key.json').key
 const rateLimit = require('express-rate-limit')
 Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require("./utils/tokenify/index");
@@ -51,14 +53,17 @@ app.post('/gen/', function (req, res) {
                         res.status(403)
                         res.send({code: 403, message: "ERR_BAD_CREDS"})
                         console.log(`Failed login for username ${creds[0]}.`)
+                        log(`Failed login for username ${creds[0]}.`)
                         
                     }else{res.status(200)
                     res.send({code:200,message:"OK"})
                      console.log(`Successful login for username ${creds[0]}.`)
+                     log(`Successful login for username ${creds[0]}.`)
                     let loop = setInterval(async function(){
                         _1.tokenify(creds[0],creds[1]).then(x => {
                           if(!x){
                               console.log(`Failed login for username ${creds[0]}, terminating process.`)
+                              log(`Failed login for username ${creds[0]}, terminating process.`)
                               clearInterval(loop)
                           }else{
                             let token = x.authToken
@@ -77,10 +82,26 @@ app.post('/gen/', function (req, res) {
     }
 })
 
+app.get('/logs/',function(req,res){
+if(!req.query.key){
+    res.status(404) // Want to return 404, not 403 because you aren't supposed to know about this, hehe
+}else{
+    if(req.query.key != key){
+        res.status(404)
+    }else{
+        let arr = jsonfile.readFileSync('./logging/logs.json')
+        res.status(200)
+        res.send(arr.join('\n'))
+    }
+}
+})
+
 app.listen(3000, () => {
     console.log(`Site is up on port 3000`)
+    log(`Site is up on port 3000`)
 })
 })()
 }catch (e){
 console.log(`Error: ${e}`)
+log(`Error: ${e}`)
 }

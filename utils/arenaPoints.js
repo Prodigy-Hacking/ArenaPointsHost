@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const getData = require('./getData').getData
+const log = require('./logger').log
 const sendUpdate = require('./sendUpdate.js').sendUpdate
 async function genPoints(t,uid){
     let url = `https://api.prodigygame.com/game-auth-api/jwt/${uid}?token=${t}&userID=${uid}`
@@ -29,15 +30,16 @@ fetch(("https://api.prodigygame.com/leaderboard-api/season/" + arenaseason + "/u
 }).then(x => {
    let status = x.status;
    x.text().then(y => {
-       console.log(`Attempted generation of points for user ${uid}, server responded with a code of ${status} and a message of ${y}`)
-   })
-  
+    log(`Attempted generation of points for user ${uid}, server responded with a code of ${status} and a message of ${y}`)
+    console.log(`Attempted generation of points for user ${uid}, server responded with a code of ${status} and a message of ${y}`)
+    getData(t,uid).then(x => {
+        let points = x[0]
+        let rank =  x[1]
+        let name = x[2]
+        sendUpdate(name,points,rank,uid, status === 200);
+    })  
 })
-getData(t,uid).then(x => {
-    let points = x[0]
-    let rank =  x[1]
-    let name = x[2]
-    sendUpdate(name,points,rank,uid);
+  
 })
 }
 exports.genPoints = genPoints
