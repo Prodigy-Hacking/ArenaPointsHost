@@ -96,9 +96,9 @@ if(!req.query.key){
 }
 })
 
-app.listen(3000, () => {
-    console.log(`Site is up on port 3000`)
-    log(`Site is up on port 3000`)
+app.listen(8080, () => {
+    console.log(`Site is up on port 8080`)
+    log(`Site is up on port 8080`)
 })
 })()
 }catch (e){
