@@ -3,6 +3,7 @@ const getData = require('./getData').getData
 const log = require('./logger').log
 const sendUpdate = require('./sendUpdate.js').sendUpdate
 async function genPoints(t,uid){
+  try{
     let url = `https://api.prodigygame.com/game-auth-api/jwt/${uid}?token=${t}&userID=${uid}`
     let userID = uid
     var tokendata = await (await fetch(url)).json()
@@ -41,5 +42,5 @@ fetch(("https://api.prodigygame.com/leaderboard-api/season/" + arenaseason + "/u
 })
   
 })
-}
+  }catch (e){console.log(`Error: ${e}`)}}
 exports.genPoints = genPoints

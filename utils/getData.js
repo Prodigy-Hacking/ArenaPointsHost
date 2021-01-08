@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 async function getData(t, uid) {
+   try{
     let url = `https://api.prodigygame.com/game-auth-api/jwt/${uid}?token=${t}&userID=${uid}`;
     var tokendata = await (await fetch(url)).json()
     let arenaseason = await (await fetch(`https://api.prodigygame.com/leaderboard-api/user/${uid}/init?userID=${uid}`, {
@@ -65,5 +66,6 @@ async function getData(t, uid) {
     }
     let results = [points,rank,fullname]
     return results;
+   }catch (e){console.log(`Error: ${e}`)}
 }
 exports.getData = getData;
