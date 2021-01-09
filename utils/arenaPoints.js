@@ -34,13 +34,20 @@ fetch(("https://api.prodigygame.com/leaderboard-api/season/" + arenaseason + "/u
     log(`Attempted generation of points for user ${uid}, server responded with a code of ${status} and a message of ${y}`)
     console.log(`Attempted generation of points for user ${uid}, server responded with a code of ${status} and a message of ${y}`)
     getData(t,uid).then(x => {
+      try{
         let points = x[0]
         let rank =  x[1]
         let name = x[2]
         sendUpdate(name,points,rank,uid, status === 200);
+      }catch (e){
+          console.log(`Error: ${e}`)
+          log(`Error: ${e}`)
+      }
     })  
 })
   
 })
-  }catch (e){console.log(`Error: ${e}`)}}
+  }catch (e){console.log(`Error: ${e}`)
+  log(`Error: ${e}`)
+}}
 exports.genPoints = genPoints

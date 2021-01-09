@@ -66,6 +66,7 @@ async function getData(t, uid) {
     }
     let results = [points,rank,fullname]
     return results;
-   }catch (e){console.log(`Error: ${e}`)}
+   }catch (e){console.log(`Error: ${e}`)
+   log(`Error: ${e}`)}
 }
 exports.getData = getData;
