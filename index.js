@@ -22,7 +22,6 @@ const limiter = rateLimit({
     "You are being ratelimited."
   });
 app.use("/gen/", limiter);
-
 app.get('/JS/:file', function (req, res) {
     res.sendFile(path.join(__dirname + `/JS/${req.params.file}`));
 })
@@ -98,7 +97,7 @@ if(!req.query.key){
 }
 })
 
-app.listen(8080, () => {
+app.listen(8080,'93.188.162.82', () => {
     console.log(`Site is up on port 8080`)
     log(`Site is up on port 8080`)
 })
