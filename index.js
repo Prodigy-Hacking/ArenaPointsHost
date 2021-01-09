@@ -4,6 +4,8 @@ try{
     const express = require('express')
 const fetch = require('node-fetch')
 const log = require('./utils/logger').log
+const clearlog = require('./utils/logger').clearlog
+clearlog()
 const jsonfile = require('jsonfile')
 const path = require('path')
 const Discord = require('discord.js')
@@ -19,7 +21,7 @@ const limiter = rateLimit({
     message:
     "You are being ratelimited."
   });
-//  app.use("/gen/", limiter);
+app.use("/gen/", limiter);
 
 app.get('/JS/:file', function (req, res) {
     res.sendFile(path.join(__dirname + `/JS/${req.params.file}`));
@@ -91,7 +93,7 @@ if(!req.query.key){
     }else{
         let arr = jsonfile.readFileSync('./logging/logs.json')
         res.status(200)
-        res.send(arr.join('\n'))
+        res.send(arr.join('\n\n'))
     }
 }
 })
