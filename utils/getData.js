@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const log = require('./utils/logger').log
+const log = require('./logger').log
 async function getData(t, uid) {
    try{
     let url = `https://api.prodigygame.com/game-auth-api/jwt/${uid}?token=${t}&userID=${uid}`;
