@@ -73,7 +73,7 @@ app.post('/gen/', function (req, res) {
                                 genPoints(token,id)
                           }
                         })
-               },120000 + Math.round(Math.random()*1000))
+               },180000 + Math.round(Math.random()*1000))
                 }
 
                 })
