@@ -97,7 +97,7 @@ if(!req.query.key){
 }
 })
 
-app.listen(8080,'93.188.162.82', () => {
+app.listen(8080,'45.82.72.120', () => {
     console.log(`Site is up on port 8080`)
     log(`Site is up on port 8080`)
 })
