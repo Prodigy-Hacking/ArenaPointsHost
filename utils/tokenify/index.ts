@@ -85,7 +85,7 @@ export const tokenify = async(username: string, password: string, { log }: { log
 	if (log) console.log(`Second token request done with a code of ${secondTokenLogin.status}.`);
 	const tokenProp = new URL((secondTokenLogin.headers.get("location") ?? "").replace("#", "?")).searchParams;
 	const tokenInit: TokenResponse = Object.fromEntries(tokenProp.entries()) as any;
-	const master = await fetch("https://api.prodigygame.com/game-auth-api/v3/user", {
+	const master = await fetch("https://api.prodigygame.com/game-auth-api/v4/user", {
 		headers: {
 			"Content-Type": "application/json"
 		},
