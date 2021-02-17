@@ -77,7 +77,7 @@ if (log)
     console.log(`Second token request done with a code of ${secondTokenLogin.status}.`);
 const tokenProp = new URL((secondTokenLogin.headers.get("location") ?? "").replace("#", "?")).searchParams;
 const tokenInit = Object.fromEntries(tokenProp.entries());
-const master = await node_fetch_1.default("https://api.prodigygame.com/game-auth-api/v3/user", {
+const master = await node_fetch_1.default("https://api.prodigygame.com/game-auth-api/v4/user", {
     headers: {
         "Content-Type": "application/json"
     },
