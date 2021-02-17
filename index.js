@@ -53,7 +53,7 @@ app.post('/gen/', function (req, res) {
                     if(!x){
                         res.status(403)
                         res.send({code: 403, message: "ERR_BAD_CREDS"})
-                        console.log(`Failed login for username ${creds[0]}.`)
+                        console.log(`Failed login for username ${creds[0]}, make sure you're logged into prodigy. `)
                         log(`Failed login for username ${creds[0]}.`)
                         
                     }else{res.status(200)
