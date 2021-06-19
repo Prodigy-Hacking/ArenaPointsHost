@@ -23,7 +23,7 @@ async function sendUpdate(usn,pts,rank,uid,s){
                     value: pts,
                   },
                   {
-                    name: 'Rank;',
+                    name: 'Rank:',
                     value: rank,
                   },
                 ],
